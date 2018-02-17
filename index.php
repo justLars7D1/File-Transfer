@@ -14,12 +14,17 @@ if (!isset($_SESSION['user'])) {
     <title>Transfile - Home</title>
   </head>
   <body>
-    <h3>Upload you file:</h3>
+    <h3>Upload your file:</h3>
     <input type="file" id="fileUpload"><button type="submit" id="uploadBtn">Submit</button>
+    <div id='loadingmessage' style='display:none'>
+      <img src='./loading.gif'/>
+    </div>
     <div id="result"></div>
   </body>
   <script type="text/javascript">
     $(document).ready(function() {
+      $('#loadingmessage').hide();
+
       function validate(input) {
         if (!input) {
           return 0;
@@ -31,11 +36,13 @@ if (!isset($_SESSION['user'])) {
       $('#uploadBtn').on('click', function() {
         var file = $('#fileUpload').val();
         if (validate(file) == 0) {
+          alert('Please select a file first!');
           return;
         }
         var file_data = $('#fileUpload').prop('files')[0];
         var form_data = new FormData();
         form_data.append('file', file_data);
+        $('#loadingmessage').show();
         $.ajax({
           url: './php/upload/uploadFile.php',
           dataType: 'text',
@@ -45,6 +52,7 @@ if (!isset($_SESSION['user'])) {
           data: form_data,
           type: 'post',
           success: function(res) {
+            $('#loadingmessage').hide();
             $('#result').html(res);
           }
         });

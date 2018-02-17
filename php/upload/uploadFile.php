@@ -28,7 +28,9 @@ if ($fileError != 0) {
   exit;
 }
 
-$fileNameNew = uniqid('', true).".".$fileActualExt;
+$uniqid = uniqid('', true);
+
+$fileNameNew = $uniqid.".".$fileActualExt;
 $fileDestination = '../../uploads/'.$fileNameNew;
 
 $sql = "INSERT INTO uploaded_files (upload_name, upload_user_id) VALUES (?, ?)";
@@ -38,7 +40,7 @@ if($statement = $conn->prepare($sql)) {
   if ($statement->execute()) {
     if (move_uploaded_file($fileTmpName, $fileDestination)) {
       echo '<br><br>The file has been uploaded!<br>
-    Give this URL to a friend so he can download it:<br> http://localhost:8080/fileTransfer/uploads/'.$fileNameNew;
+    Give this URL to a friend so he can download it:<br> <a href="http://localhost:8080/filetransfer/download.php?id='.$uniqid.'">http://localhost:8080/filetransfer/download.php?id='.$uniqid.'</a>';
     }
   }
 }
