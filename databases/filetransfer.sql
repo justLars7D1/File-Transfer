@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 17 feb 2018 om 17:42
+-- Gegenereerd op: 17 feb 2018 om 18:33
 -- Serverversie: 10.1.25-MariaDB
 -- PHP-versie: 7.1.7
 
@@ -21,6 +21,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `filetransfer`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `uploaded_files`
+--
+
+CREATE TABLE `uploaded_files` (
+  `upload_id` int(11) NOT NULL,
+  `upload_name` text NOT NULL,
+  `upload_user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -46,6 +58,12 @@ INSERT INTO `users` (`user_id`, `user_uid`, `user_pwd`) VALUES
 --
 
 --
+-- Indexen voor tabel `uploaded_files`
+--
+ALTER TABLE `uploaded_files`
+  ADD PRIMARY KEY (`upload_id`);
+
+--
 -- Indexen voor tabel `users`
 --
 ALTER TABLE `users`
@@ -55,6 +73,11 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
+--
+-- AUTO_INCREMENT voor een tabel `uploaded_files`
+--
+ALTER TABLE `uploaded_files`
+  MODIFY `upload_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT voor een tabel `users`
 --
